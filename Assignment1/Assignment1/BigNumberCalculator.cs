@@ -40,7 +40,7 @@ namespace Assignment1
                 {
                     userInputBinaryInCharArr[i] = '1';
                 }
-                else if (userInputBinaryInCharArr[i] =='1')
+                else if (userInputBinaryInCharArr[i] == '1')
                 {
                     userInputBinaryInCharArr[i] = '0';
                 }
@@ -50,19 +50,19 @@ namespace Assignment1
                 }
             }
 
-            return userInputFormat + new string (userInputBinaryInCharArr);
+            return userInputFormat + new string(userInputBinaryInCharArr);
         }
 
         public static string GetTwosComplementOrNull(string num)
         {
-            string UserInput = GetOnesComplementOrNull(num);
+            string userInput = GetOnesComplementOrNull(num);
             
-            if (UserInput == null)
+            if (userInput == null)
             {
                 return null;
             }
-            string userInputFormat = UserInput.Substring(0, 2);
-            string userInputBinary = UserInput.Substring(2);
+            string userInputFormat = userInput.Substring(0, 2);
+            string userInputBinary = userInput.Substring(2);
             char[] userInputBinaryInCharArr = userInputBinary.ToCharArray();
 
             for (int i = userInputBinaryInCharArr.Length - 1; i >= 0; i--)
@@ -78,7 +78,7 @@ namespace Assignment1
                 }
             }
             
-            return userInputFormat + new string (userInputBinaryInCharArr);
+            return userInputFormat + new string(userInputBinaryInCharArr);
         }
 
         public static string ToBinaryOrNull(string num)
@@ -109,10 +109,10 @@ namespace Assignment1
                 //int remainder;
                 int input = int.Parse(num);
 
-                bool isNegative = false;
+                bool bisNegative = false;
                 if (input < 0)
                 {
-                    isNegative = true;
+                    bisNegative = true;
                     input *= -1;
                 }
 
@@ -137,7 +137,7 @@ namespace Assignment1
 
                 binaryFormat.Append('1');
 
-                if (isNegative == false)
+                if (bisNegative == false)
                 {
                     char[] tempArr = binaryFormat.ToString().ToCharArray();
                     string reversedArr = null;
@@ -159,7 +159,9 @@ namespace Assignment1
                         reversedArr += tempArr[i];
                     }
 
-                    return GetTwosComplementOrNull("0b0" + reversedArr);
+                    string temp = GetTwosComplementOrNull("0b0" + reversedArr);
+                    temp.Insert(2, "1");
+                    return temp;
                 }
             }
         }
@@ -169,33 +171,14 @@ namespace Assignment1
             string userInputFormat = num.Substring(0, 2);
             string userInputBinary = num.Substring(2);
 
-           /* foreach (char ch in userInputBinary)
-            {
-                if ((int)ch < 48 && (int)ch > 57)
-                {
-                    return null;
-                }
-            }*/
-
             if (userInputFormat == "0x")
             {
                 return num;
             }
 
             if (userInputFormat == "0b")
-            {          
-               /*int chunkSize = 4;
-                int stringLength = userInputBinary.Length;
-                string[] binaryArray = new string[stringLength / 4];
-                int index = 0;
-
-                for (int i = 0; i < stringLength; i += chunkSize)
-                {
-                    binaryArray[index] = userInputBinary.Substring(i, chunkSize);
-                    index++;
-                }*/
-
-                return BinaryToHexFormat(userInputBinary);
+            {         
+                return ChangeBinaryToHexFormat(userInputBinary);
             }
 
             //integer
@@ -203,7 +186,7 @@ namespace Assignment1
                 string decToBinary = ToBinaryOrNull(num);
                 string binaryFormat = decToBinary.Substring(2);
 
-                return BinaryToHexFormat(binaryFormat);
+                return ChangeBinaryToHexFormat(binaryFormat);
             }
         }
 
@@ -460,7 +443,7 @@ namespace Assignment1
             return hexToBinary.ToString();
         }
 
-        public static string BinaryToHex(string[] binaryInput)
+        public static string ChangeBinaryToHex(string[] binaryInput)
         {
             StringBuilder binaryToHex = new StringBuilder(binaryInput.Length / 4);
 
@@ -522,7 +505,7 @@ namespace Assignment1
             return binaryToHex.ToString();
         }
 
-        public static string BinaryToHexFormat(string binaryInput)
+        public static string ChangeBinaryToHexFormat(string binaryInput)
         {
             int chunkSize = 4;
             int stringLength = binaryInput.Length;
@@ -535,26 +518,8 @@ namespace Assignment1
                 index++;
             }
 
-            return "0x" + BinaryToHex(binaryArray);
+            return "0x" + ChangeBinaryToHex(binaryArray);
         }
 
-        /*public static int ConvertToInt(string num)
-        {
-            string datatype = null;
-            string dataFormat = num.Substring(0, 2);
-
-            if (dataFormat == "0b")
-            {
-                ToDecimalOrNull(num);
-            } 
-            else if (dataFormat == "0x")
-            {
-                ToDecimalOrNull(num);
-            }
-            else
-            {
-                return int.Parse(num);
-            }
-        }*/
     }
 }
