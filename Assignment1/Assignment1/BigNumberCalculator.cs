@@ -90,14 +90,6 @@ namespace Assignment1
             string userInputFormat = num.Substring(0, 2);
             string userInputBinary = num.Substring(2);
 
-            /*foreach (char ch in userInputBinary)
-            {
-                if ((int)ch < 48 && (int)ch > 57)
-                {
-                    return null;
-                }
-            }*/
-
             if (userInputFormat == "0b")
             { 
                 return num;
@@ -113,10 +105,10 @@ namespace Assignment1
                 int quotient;
                 int input = int.Parse(num);
 
-                bool bisNegative = false;
+                bool bIsNegative = false;
                 if (input < 0)
                 {
-                    bisNegative = true;
+                    bIsNegative = true;
                     input *= -1;
                 }
 
@@ -131,7 +123,7 @@ namespace Assignment1
 
                 binaryFormat.Append('1');
 
-                if (bisNegative == false)
+                if (bIsNegative == false)
                 {
                     char[] tempArr = binaryFormat.ToString().ToCharArray();
                     string reversedArr = null;
@@ -188,13 +180,6 @@ namespace Assignment1
             string userInputFormat = num.Substring(0, 2);
             string userInputBinary = num.Substring(2);
 
-            /*foreach (char ch in userInputBinary)
-            {
-                if ((int)ch < 48 || (int)ch > 57)
-                {
-                    return null;
-                }
-            }*/
             if (userInputFormat == "0b")
             {
                 char[] userInputBinaryToCharArray = userInputBinary.ToCharArray();
@@ -425,7 +410,7 @@ namespace Assignment1
         {
             StringBuilder hexToBinary = new StringBuilder(hexInput.Length * 4);
 
-            foreach(char ch in hexInput)
+            foreach (char ch in hexInput)
             {
                 switch (ch)
                 {
