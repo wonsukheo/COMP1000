@@ -83,6 +83,10 @@ namespace Assignment1
 
         public static string ToBinaryOrNull(string num)
         {
+            if (num.Length < 2)
+            {
+                goto integer;
+            }
             string userInputFormat = num.Substring(0, 2);
             string userInputBinary = num.Substring(2);
 
@@ -104,9 +108,9 @@ namespace Assignment1
                 return "0b" + HexToBinary(userInputBinary);
             }
             //integer
+            integer:
             {
                 int quotient;
-                //int remainder;
                 int input = int.Parse(num);
 
                 bool bisNegative = false;
@@ -120,17 +124,7 @@ namespace Assignment1
                 do
                 {
                     quotient = input / 2;
-                    //remainder = input % 2;
                     binaryFormat.Append(input % 2);
-                    /*if (remainder == 1)
-                    {
-                        binaryFormat.Append('1');
-                    }
-                    else
-                    {
-                        binaryFormat.Append('0');
-                    }*/
-
                     input = quotient;
                 }
                 while (quotient > 1);
@@ -159,9 +153,8 @@ namespace Assignment1
                         reversedArr += tempArr[i];
                     }
 
-                    string temp = GetTwosComplementOrNull("0b0" + reversedArr);
-                    temp.Insert(2, "1");
-                    return temp;
+                    
+                    return GetTwosComplementOrNull("0b0" + reversedArr);
                 }
             }
         }
@@ -222,7 +215,7 @@ namespace Assignment1
                     string temp = GetTwosComplementOrNull(num);
                     char[] tempArr = temp.ToCharArray();
 
-                    for (int i = tempArr.Length - 1; i >= 3; i--)
+                    for (int i = tempArr.Length - 1; i >= 2; i--)
                     {
                         result += (tempArr[i] - '0') * (int)Math.Pow(2, index);
                         index++;
@@ -281,7 +274,6 @@ namespace Assignment1
             }
 
             int result = num1Int + num2Int;
-            int resultAbs = Math.Abs(num1Int) + Math.Abs(num2Int);
 
             if (result > validRangePositive)
             {
@@ -319,7 +311,22 @@ namespace Assignment1
                 }
                 else
                 {
-                    return "0b" + ToBinaryOrNull(result.ToString());
+                    string result2 = ToBinaryOrNull(result.ToString());
+                    int fillup = BitCount - result2.Substring(2).Length;
+                    string insert = null;
+                    char bitChar = result2[2] == '1' ? '1' : '0';
+
+                    for (int i = 0; i < fillup; i++)
+                    {
+                        insert += bitChar;
+                    }
+                    if (insert == null)
+                    {
+                        return ToBinaryOrNull(result.ToString());
+                    }
+
+                    string formattedInput = result2.Insert(2, insert);
+                    return ToBinaryOrNull(formattedInput.ToString());
                 }
             }
         }
@@ -364,7 +371,23 @@ namespace Assignment1
                 }
                 else
                 {
-                    return "0b" + ToBinaryOrNull(result.ToString());
+                    string result2 = ToBinaryOrNull(result.ToString());
+                    int fillup = BitCount - result2.Substring(2).Length;
+
+                    string insert = null;
+                    char bitChar = result2[2] == '1' ? '1' : '0';
+
+                    for (int i = 0; i < fillup; i++)
+                    {
+                        insert += bitChar;
+                    }
+
+                    if (insert == null)
+                    {
+                        return ToBinaryOrNull(result.ToString());
+                    }
+                    string formattedInput = result2.Insert(2, insert);
+                    return ToBinaryOrNull(formattedInput.ToString());
                 }
             }
             else
@@ -376,7 +399,24 @@ namespace Assignment1
                 }
                 else
                 {
-                    return "0b" + ToBinaryOrNull(result.ToString());
+                    string result2 = ToBinaryOrNull(result.ToString());
+                    int fillup = BitCount - result2.Substring(2).Length;
+
+                    string insert = null;
+                    char bitChar = result2[2] == '1' ? '1' : '0';
+
+                    for (int i = 0; i < fillup; i++)
+                    {
+                        insert += bitChar;
+                    }
+
+                    if (insert == null)
+                    {
+                        return ToBinaryOrNull(result.ToString());
+                    }
+                    string formattedInput = result2.Insert(2, insert);
+                    return ToBinaryOrNull(formattedInput.ToString());
+                    //return "0b" + ToBinaryOrNull(result.ToString());
                 }
             }
         }
@@ -507,14 +547,26 @@ namespace Assignment1
 
         public static string ChangeBinaryToHexFormat(string binaryInput)
         {
+            
+            int fillup = 4 - binaryInput.Length % 4;
+            string insert = null;
+            char bitChar = binaryInput[0] == '1' ? '1' : '0';
+            
+            for (int i = 0; i < fillup; i++)
+            {
+                insert += bitChar;
+            }
+
+            string formattedInput = binaryInput.Insert(0, insert);
+
             int chunkSize = 4;
-            int stringLength = binaryInput.Length;
+            int stringLength = formattedInput.Length;
             string[] binaryArray = new string[stringLength / 4];
             int index = 0;
 
             for (int i = 0; i < stringLength; i += chunkSize)
             {
-                binaryArray[index] = binaryInput.Substring(i, chunkSize);
+                binaryArray[index] = formattedInput.Substring(i, chunkSize);
                 index++;
             }
 
