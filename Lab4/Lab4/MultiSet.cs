@@ -5,17 +5,17 @@ namespace Lab4
 {
     public sealed class MultiSet
     {
-        List<string> elements = new List<string>();
-        Dictionary<string, int> elements_multifier = new Dictionary<string, int>();
+        List<string> Elements = new List<string>();
+        Dictionary<string, int> Elements_Multifier = new Dictionary<string, int>();
 
         public int CheckLexicographicOrder(string lhstring, string rhstring)
         {
             // return -1 if lefthand is bigger, return 0 if same, return 1 if righthand is bigger
             int i = 0;
-            int lhstring_len = lhstring.Length;
-            int rhstring_len = rhstring.Length;
+            int lhString_len = lhstring.Length;
+            int rhString_len = rhstring.Length;
 
-            while (i < lhstring_len && i < rhstring_len)
+            while (i < lhString_len && i < rhString_len)
             {
                 if (lhstring[i] != rhstring[i])
                 {
@@ -23,60 +23,60 @@ namespace Lab4
                 }
                 i++;
             }
-            if (lhstring_len == rhstring_len)
+            if (lhString_len == rhString_len)
             {
                 return 0;
             }
-            return lhstring_len > rhstring_len ? -1 : 1;
+            return lhString_len > rhString_len ? -1 : 1;
         }
 
         public void Add(string element)
         {
-            int elementsListLength = elements.Count;
-            bool isAdded = false;
+            int elementsListLength = Elements.Count;
+            bool bIsAdded = false;
             
             for (int i = 0; i < elementsListLength; i++) // if string is null, int < null not possible?
             {
-                int isBig = CheckLexicographicOrder(elements[i], element);
+                int isBig = CheckLexicographicOrder(Elements[i], element);
                 if (isBig == -1 || isBig == 0)
                 {
-                    elements.Insert(i, element);
-                    isAdded = true;
+                    Elements.Insert(i, element);
+                    bIsAdded = true;
                     break;
                 }
             }
 
-            if (isAdded == false)
+            if (bIsAdded == false)
             {
-                elements.Add(element);
+                Elements.Add(element);
             }
 
-            if (elements_multifier.ContainsKey(element))
+            if (Elements_Multifier.ContainsKey(element))
             {
                 int value;
-                elements_multifier.TryGetValue(element, out value);
-                elements_multifier[element] = ++value;
+                Elements_Multifier.TryGetValue(element, out value);
+                Elements_Multifier[element] = ++value;
             }
             else
             {
-                elements_multifier.Add(element, 1);
+                Elements_Multifier.Add(element, 1);
             }            
         }
 
         public bool Remove(string element)
         {
-            if (elements.Remove(element))
+            if (Elements.Remove(element))
             {
                 int value;
-                elements_multifier.TryGetValue(element, out value);
+                Elements_Multifier.TryGetValue(element, out value);
 
                 if (value > 1)
                 {
-                    elements_multifier[element] = --value;
+                    Elements_Multifier[element] = --value;
                 }
                 else
                 {
-                    elements_multifier.Remove(element);
+                    Elements_Multifier.Remove(element);
                 }
                 return true;
             }
@@ -86,7 +86,7 @@ namespace Lab4
         public uint GetMultiplicity(string element)
         {
             int value;
-            if (elements_multifier.TryGetValue(element, out value))
+            if (Elements_Multifier.TryGetValue(element, out value))
             {
                 return (uint)value;
             }
@@ -95,25 +95,25 @@ namespace Lab4
 
         public List<string> ToList()
         {
-            return elements;
+            return Elements;
         }
 
         public MultiSet Union(MultiSet other)
         {
             MultiSet union = new MultiSet();
-            for (int i = 0; i < elements.Count; i++)
+            for (int i = 0; i < Elements.Count; i++)
             {
-                union.Add(elements[i]);
+                union.Add(Elements[i]);
             }
-            for (int i = 0; i < other.elements.Count; i++)
+            for (int i = 0; i < other.Elements.Count; i++)
             {
-                union.Add(other.elements[i]);
+                union.Add(other.Elements[i]);
             }
             MultiSet intersect = Intersect(other);
 
-            for (int i = 0; i < intersect.elements.Count; i++)
+            for (int i = 0; i < intersect.Elements.Count; i++)
             {
-                union.Remove(intersect.elements[i]);
+                union.Remove(intersect.Elements[i]);
             }
             return union;
         }
@@ -122,24 +122,24 @@ namespace Lab4
         {
             MultiSet intersect = new MultiSet();
 
-            for (int i = 0; i < elements.Count; i++)
+            for (int i = 0; i < Elements.Count; i++)
             {
-                if (other.elements.Contains(elements[i]))
+                if (other.Elements.Contains(Elements[i]))
                 {
-                    if (i > 0 && elements[i] == elements[i - 1])
+                    if (i > 0 && Elements[i] == Elements[i - 1])
                     {                       
                         continue;
                     }
                     int value1;
                     int value2;
-                    elements_multifier.TryGetValue(elements[i], out value1);
-                    other.elements_multifier.TryGetValue(elements[i], out value2);
+                    Elements_Multifier.TryGetValue(Elements[i], out value1);
+                    other.Elements_Multifier.TryGetValue(Elements[i], out value2);
 
                     int value3 = value2 > value1 ? value1 : value2;
 
                     for (int j = 0; j < value3; j++)
                     {
-                        intersect.Add(elements[i]);
+                        intersect.Add(Elements[i]);
                     }
                 }
             }
@@ -149,13 +149,13 @@ namespace Lab4
         public MultiSet Subtract(MultiSet other)
         {
             MultiSet subtract = new MultiSet();
-            subtract.elements = elements;
-            subtract.elements_multifier = elements_multifier;
+            subtract.Elements = Elements;
+            subtract.Elements_Multifier = Elements_Multifier;
 
             MultiSet intersect = Intersect(other);
-            for (int i = 0; i < intersect.elements.Count; i++)
+            for (int i = 0; i < intersect.Elements.Count; i++)
             {
-                subtract.Remove(intersect.elements[i]);
+                subtract.Remove(intersect.Elements[i]);
             }
 
             return subtract;
@@ -163,10 +163,9 @@ namespace Lab4
 
         public List<MultiSet> FindPowerSet()
         {
-            int n = elements.Count;
+            int n = Elements.Count;
             int powerSetCount = 1 << n;
             List<MultiSet> result = new List<MultiSet>(powerSetCount);
-            List<string> powerset_string = new List<string>(powerSetCount);
 
             for (int setMask = 0; setMask < powerSetCount; setMask++)
             {
@@ -175,36 +174,36 @@ namespace Lab4
                 {
                     if ((setMask & (1 << i)) > 0)
                     {
-                        set.Add(elements[i]);
+                        set.Add(Elements[i]);
                     }
                 }
-                bool bflag = true;
+                bool bFlag = true;
 
                 for (int i = 0; i < result.Count; i++)
                 {
-                    if (set.elements.Count == result[i].elements.Count)
+                    if (set.Elements.Count == result[i].Elements.Count)
                     {
-                        for (int j = 0; j < result[i].elements.Count; j++)
+                        for (int j = 0; j < result[i].Elements.Count; j++)
                         {
-                            if (set.elements[j] != result[i].elements[j])
+                            if (set.Elements[j] != result[i].Elements[j])
                             {
-                                bflag = true;
+                                bFlag = true;
                                 break;
                             }
-                            if (j == result[i].elements.Count - 1)
+                            if (j == result[i].Elements.Count - 1)
                             {
-                                bflag = false;
+                                bFlag = false;
                             }
                         }
                     }
                 }
-                if (bflag || result.Count == 0)
+                if (bFlag || result.Count == 0)
                 {
                     for (int result_index = 0; result_index < result.Count; result_index++)
                     {
-                        for (int element_index = 0; element_index < result[result_index].elements.Count; element_index++)
+                        for (int element_index = 0; element_index < result[result_index].Elements.Count; element_index++)
                         {
-                            int dic_order = CheckLexicographicOrder(result[result_index].elements[element_index], set.elements[element_index]);
+                            int dic_order = CheckLexicographicOrder(result[result_index].Elements[element_index], set.Elements[element_index]);
 
                             if (dic_order == -1)
                             {
@@ -223,10 +222,10 @@ namespace Lab4
 
         public bool IsSubsetOf(MultiSet other)
         {
-            foreach (var elements in elements_multifier)
+            foreach (var elements in Elements_Multifier)
             {
                 int other_element_count;
-                if (other.elements_multifier.TryGetValue(elements.Key, out other_element_count))
+                if (other.Elements_Multifier.TryGetValue(elements.Key, out other_element_count))
                 {
                     if (elements.Value < other_element_count)
                     {
@@ -243,10 +242,10 @@ namespace Lab4
 
         public bool IsSupersetOf(MultiSet other)
         {
-            foreach (var other_elements in other.elements_multifier)
+            foreach (var other_elements in other.Elements_Multifier)
             {
                 int elements_count;
-                if (elements_multifier.TryGetValue(other_elements.Key, out elements_count))
+                if (Elements_Multifier.TryGetValue(other_elements.Key, out elements_count))
                 {
                     if (other_elements.Value > elements_count)
                     {
