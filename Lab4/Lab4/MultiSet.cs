@@ -6,16 +6,16 @@ namespace Lab4
     public sealed class MultiSet
     {
         List<string> Elements = new List<string>();
-        Dictionary<string, int> Elements_Multifier = new Dictionary<string, int>();
+        Dictionary<string, int> ElementsMultifier = new Dictionary<string, int>();
 
         public int CheckLexicographicOrder(string lhstring, string rhstring)
         {
             // return -1 if lefthand is bigger, return 0 if same, return 1 if righthand is bigger
             int i = 0;
-            int lhString_len = lhstring.Length;
-            int rhString_len = rhstring.Length;
+            int lhStringLength = lhstring.Length;
+            int rhStringLength = rhstring.Length;
 
-            while (i < lhString_len && i < rhString_len)
+            while (i < lhStringLength && i < rhStringLength)
             {
                 if (lhstring[i] != rhstring[i])
                 {
@@ -23,11 +23,11 @@ namespace Lab4
                 }
                 i++;
             }
-            if (lhString_len == rhString_len)
+            if (lhStringLength == rhStringLength)
             {
                 return 0;
             }
-            return lhString_len > rhString_len ? -1 : 1;
+            return lhStringLength > rhStringLength ? -1 : 1;
         }
 
         public void Add(string element)
@@ -51,15 +51,15 @@ namespace Lab4
                 Elements.Add(element);
             }
 
-            if (Elements_Multifier.ContainsKey(element))
+            if (ElementsMultifier.ContainsKey(element))
             {
                 int value;
-                Elements_Multifier.TryGetValue(element, out value);
-                Elements_Multifier[element] = ++value;
+                ElementsMultifier.TryGetValue(element, out value);
+                ElementsMultifier[element] = ++value;
             }
             else
             {
-                Elements_Multifier.Add(element, 1);
+                ElementsMultifier.Add(element, 1);
             }            
         }
 
@@ -68,15 +68,15 @@ namespace Lab4
             if (Elements.Remove(element))
             {
                 int value;
-                Elements_Multifier.TryGetValue(element, out value);
+                ElementsMultifier.TryGetValue(element, out value);
 
                 if (value > 1)
                 {
-                    Elements_Multifier[element] = --value;
+                    ElementsMultifier[element] = --value;
                 }
                 else
                 {
-                    Elements_Multifier.Remove(element);
+                    ElementsMultifier.Remove(element);
                 }
                 return true;
             }
@@ -86,7 +86,7 @@ namespace Lab4
         public uint GetMultiplicity(string element)
         {
             int value;
-            if (Elements_Multifier.TryGetValue(element, out value))
+            if (ElementsMultifier.TryGetValue(element, out value))
             {
                 return (uint)value;
             }
@@ -132,8 +132,8 @@ namespace Lab4
                     }
                     int value1;
                     int value2;
-                    Elements_Multifier.TryGetValue(Elements[i], out value1);
-                    other.Elements_Multifier.TryGetValue(Elements[i], out value2);
+                    ElementsMultifier.TryGetValue(Elements[i], out value1);
+                    other.ElementsMultifier.TryGetValue(Elements[i], out value2);
 
                     int value3 = value2 > value1 ? value1 : value2;
 
@@ -150,7 +150,7 @@ namespace Lab4
         {
             MultiSet subtract = new MultiSet();
             subtract.Elements = Elements;
-            subtract.Elements_Multifier = Elements_Multifier;
+            subtract.ElementsMultifier = ElementsMultifier;
 
             MultiSet intersect = Intersect(other);
             for (int i = 0; i < intersect.Elements.Count; i++)
@@ -203,9 +203,9 @@ namespace Lab4
                     {
                         for (int element_index = 0; element_index < result[result_index].Elements.Count; element_index++)
                         {
-                            int dic_order = CheckLexicographicOrder(result[result_index].Elements[element_index], set.Elements[element_index]);
+                            int dicOrder = CheckLexicographicOrder(result[result_index].Elements[element_index], set.Elements[element_index]);
 
-                            if (dic_order == -1)
+                            if (dicOrder == -1)
                             {
                                 result.Insert(result_index, set);
                                 goto end;
@@ -222,12 +222,12 @@ namespace Lab4
 
         public bool IsSubsetOf(MultiSet other)
         {
-            foreach (var elements in Elements_Multifier)
+            foreach (var elements in ElementsMultifier)
             {
-                int other_element_count;
-                if (other.Elements_Multifier.TryGetValue(elements.Key, out other_element_count))
+                int otherElementsCount;
+                if (other.ElementsMultifier.TryGetValue(elements.Key, out otherElementsCount))
                 {
-                    if (elements.Value < other_element_count)
+                    if (elements.Value < otherElementsCount)
                     {
                         return false;
                     }
@@ -242,12 +242,12 @@ namespace Lab4
 
         public bool IsSupersetOf(MultiSet other)
         {
-            foreach (var other_elements in other.Elements_Multifier)
+            foreach (var other_elements in other.ElementsMultifier)
             {
-                int elements_count;
-                if (Elements_Multifier.TryGetValue(other_elements.Key, out elements_count))
+                int elementsCount;
+                if (ElementsMultifier.TryGetValue(other_elements.Key, out elementsCount))
                 {
-                    if (other_elements.Value > elements_count)
+                    if (other_elements.Value > elementsCount)
                     {
                         return false;
                     }
