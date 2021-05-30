@@ -166,6 +166,7 @@ namespace Lab4
             int n = elements.Count;
             int powerSetCount = 1 << n;
             List<MultiSet> result = new List<MultiSet>(powerSetCount);
+            List<string> powerset_string = new List<string>(powerSetCount);
 
             for (int setMask = 0; setMask < powerSetCount; setMask++)
             {
@@ -177,7 +178,45 @@ namespace Lab4
                         set.Add(elements[i]);
                     }
                 }
-                result.Add(set);
+                bool bflag = true;
+
+                for (int i = 0; i < result.Count; i++)
+                {
+                    if (set.elements.Count == result[i].elements.Count)
+                    {
+                        for (int j = 0; j < result[i].elements.Count; j++)
+                        {
+                            if (set.elements[j] != result[i].elements[j])
+                            {
+                                bflag = true;
+                                break;
+                            }
+                            if (j == result[i].elements.Count - 1)
+                            {
+                                bflag = false;
+                            }
+                        }
+                    }
+                }
+                if (bflag || result.Count == 0)
+                {
+                    for (int result_index = 0; result_index < result.Count; result_index++)
+                    {
+                        for (int element_index = 0; element_index < result[result_index].elements.Count; element_index++)
+                        {
+                            int dic_order = CheckLexicographicOrder(result[result_index].elements[element_index], set.elements[element_index]);
+
+                            if (dic_order == -1)
+                            {
+                                result.Insert(result_index, set);
+                                goto end;
+                            }
+                        }
+                    }
+                    result.Add(set);
+                }
+            end:;
+
             }
             return result;
         }
