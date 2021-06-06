@@ -4,8 +4,8 @@
     "Minor": 0
   },
   "PanCoords": {
-    "X": 0.0,
-    "Y": 0.0
+    "X": 252.0,
+    "Y": 189.0
   },
   "InputCoords": {
     "X": 90.0,
@@ -15,21 +15,78 @@
     {
       "Order": 0,
       "ID": "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
-      "Value": false
+      "Value": true
+    },
+    {
+      "Order": 1,
+      "ID": "aa67b53b-2178-44d5-85a4-bf68d3fbfea2",
+      "Value": true
     }
   ],
   "OutputCoords": {
-    "X": 910.0,
-    "Y": 26.0
+    "X": 961.0,
+    "Y": 37.0
   },
   "Outputs": [
     {
       "Order": 0,
-      "ID": "fb700d20-5304-4ec7-85f0-13b0e636e502"
+      "ID": "fb700d20-5304-4ec7-85f0-13b0e636e502",
+      "InputSource": "aa92dfc5-f6ee-4200-81ca-ca884d1cd216"
     }
   ],
-  "Gates": [],
+  "Gates": [
+    {
+      "ID": "1160cf51-e3fe-4881-8a8e-c7b7be38b239",
+      "Inputs": [
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112"
+      ],
+      "X": 366.0,
+      "Y": -32.0,
+      "Type": "NOR"
+    },
+    {
+      "ID": "cb34a871-516b-4276-ac1a-4028acad3c3a",
+      "Inputs": [
+        "aa67b53b-2178-44d5-85a4-bf68d3fbfea2",
+        "aa67b53b-2178-44d5-85a4-bf68d3fbfea2"
+      ],
+      "X": 365.0,
+      "Y": 39.0,
+      "Type": "NOR"
+    },
+    {
+      "ID": "5e6b3c98-32be-4d4e-bb6a-511c100dc723",
+      "Inputs": [
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
+        "aa67b53b-2178-44d5-85a4-bf68d3fbfea2"
+      ],
+      "X": 366.0,
+      "Y": 163.0,
+      "Type": "NOR"
+    },
+    {
+      "ID": "ed115fb3-42ac-46ed-ac8e-83f336ca592a",
+      "Inputs": [
+        "1160cf51-e3fe-4881-8a8e-c7b7be38b239",
+        "cb34a871-516b-4276-ac1a-4028acad3c3a"
+      ],
+      "X": 540.0,
+      "Y": 7.0,
+      "Type": "NOR"
+    },
+    {
+      "ID": "aa92dfc5-f6ee-4200-81ca-ca884d1cd216",
+      "Inputs": [
+        "ed115fb3-42ac-46ed-ac8e-83f336ca592a",
+        "5e6b3c98-32be-4d4e-bb6a-511c100dc723"
+      ],
+      "X": 703.0,
+      "Y": 73.0,
+      "Type": "NOR"
+    }
+  ],
   "AllowedGateTypes": [
-      "NOR"
+    "NOR"
   ]
 }

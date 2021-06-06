@@ -4,32 +4,89 @@
     "Minor": 0
   },
   "PanCoords": {
-    "X": 0.0,
-    "Y": 0.0
+    "X": 914.0,
+    "Y": 733.0
   },
   "InputCoords": {
-    "X": 90.0,
-    "Y": 26.0
+    "X": -349.0,
+    "Y": -298.0
   },
   "Inputs": [
     {
       "Order": 0,
       "ID": "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
       "Value": false
+    },
+    {
+      "Order": 1,
+      "ID": "9052c60f-4992-4aa1-8d6b-fff92d91eea7",
+      "Value": false
     }
   ],
   "OutputCoords": {
-    "X": 910.0,
-    "Y": 26.0
+    "X": 593.0,
+    "Y": -266.0
   },
   "Outputs": [
     {
       "Order": 0,
-      "ID": "fb700d20-5304-4ec7-85f0-13b0e636e502"
+      "ID": "17827e32-944a-4a10-9517-3b10964ed70d",
+      "InputSource": "9ae4b0f6-4a5e-4c99-8271-c82c134b3e65"
     }
   ],
-  "Gates": [],
+  "Gates": [
+    {
+      "ID": "634dc1f2-1643-46b0-9509-d033163c614a",
+      "Inputs": [
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112"
+      ],
+      "X": -24.0,
+      "Y": -216.0,
+      "Type": "NAND"
+    },
+    {
+      "ID": "19ed68ae-b0df-464c-a6e6-5db1e541278f",
+      "Inputs": [
+        "634dc1f2-1643-46b0-9509-d033163c614a",
+        "d8e05843-962b-446c-85ae-11d3bd978230"
+      ],
+      "X": 148.0,
+      "Y": -173.0,
+      "Type": "NAND"
+    },
+    {
+      "ID": "d1a6c903-16ae-4821-b494-73f8462d5722",
+      "Inputs": [
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
+        "9052c60f-4992-4aa1-8d6b-fff92d91eea7"
+      ],
+      "X": -26.0,
+      "Y": -315.0,
+      "Type": "NAND"
+    },
+    {
+      "ID": "9ae4b0f6-4a5e-4c99-8271-c82c134b3e65",
+      "Inputs": [
+        "d1a6c903-16ae-4821-b494-73f8462d5722",
+        "19ed68ae-b0df-464c-a6e6-5db1e541278f"
+      ],
+      "X": 308.0,
+      "Y": -232.0,
+      "Type": "NAND"
+    },
+    {
+      "ID": "d8e05843-962b-446c-85ae-11d3bd978230",
+      "Inputs": [
+        "9052c60f-4992-4aa1-8d6b-fff92d91eea7",
+        "9052c60f-4992-4aa1-8d6b-fff92d91eea7"
+      ],
+      "X": -22.0,
+      "Y": -126.0,
+      "Type": "NAND"
+    }
+  ],
   "AllowedGateTypes": [
-      "NAND"
+    "NAND"
   ]
 }

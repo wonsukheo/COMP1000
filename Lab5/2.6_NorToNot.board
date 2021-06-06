@@ -4,8 +4,8 @@
     "Minor": 0
   },
   "PanCoords": {
-    "X": 0.0,
-    "Y": 0.0
+    "X": 254.0,
+    "Y": 233.0
   },
   "InputCoords": {
     "X": 90.0,
@@ -19,17 +19,29 @@
     }
   ],
   "OutputCoords": {
-    "X": 910.0,
+    "X": 652.0,
     "Y": 26.0
   },
   "Outputs": [
     {
       "Order": 0,
-      "ID": "fb700d20-5304-4ec7-85f0-13b0e636e502"
+      "ID": "fb700d20-5304-4ec7-85f0-13b0e636e502",
+      "InputSource": "f710c5ee-c3f5-4ba0-b17d-eb62ea7873b5"
     }
   ],
-  "Gates": [],
+  "Gates": [
+    {
+      "ID": "f710c5ee-c3f5-4ba0-b17d-eb62ea7873b5",
+      "Inputs": [
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112",
+        "79e0ba00-8ac1-4ac1-bd72-ec09e9888112"
+      ],
+      "X": 379.0,
+      "Y": 60.0,
+      "Type": "NOR"
+    }
+  ],
   "AllowedGateTypes": [
-      "NOR"
+    "NOR"
   ]
 }
