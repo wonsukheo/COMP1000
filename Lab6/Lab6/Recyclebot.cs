@@ -28,7 +28,7 @@ namespace Lab6
         {
             List<Item> notDumpItems = new List<Item>();
             
-            foreach(Item item in NonRecycleItems)
+            foreach (Item item in NonRecycleItems)
             {
                 if (item.Type != EType.Electronics && item.Type != EType.Furniture)
                 {
@@ -48,7 +48,7 @@ namespace Lab6
 
             List<Item> dumpItems = NonRecycleItems;
             
-            foreach(Item item in notDumpItems)
+            foreach (Item item in notDumpItems)
             {
                 dumpItems.Remove(item);
             }
