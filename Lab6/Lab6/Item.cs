@@ -15,7 +15,7 @@
             IsToxicWaste = bToxicWaste;
         }
 
-        public bool isRecyclable()
+        public bool IsRecyclable()
         {
             if (Type == EType.Paper || Type == EType.Furniture || Type == EType.Electronics)
             {

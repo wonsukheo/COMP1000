@@ -14,7 +14,7 @@ namespace Lab6
         }
         public void Add(Item item)
         {
-            if(item.isRecyclable() && (item.Weight >= 5.0 || item.Weight < 2.0))
+            if (item.IsRecyclable() && (item.Weight >= 5.0 || item.Weight < 2.0))
             {
                 NonRecycleItems.Add(item);
             }
@@ -23,31 +23,40 @@ namespace Lab6
                 RecycleItems.Add(item);
             }
         }
-        /*
+        // Dump using foreach twice but simple
         public List<Item> Dump()
         {
-            List<Item> DumpItems = new List<Item>();
+            List<Item> notDumpItems = new List<Item>();
             
             foreach(Item item in NonRecycleItems)
             {
-                if (item.IsToxicWaste)
+                if (item.Type != EType.Electronics && item.Type != EType.Furniture)
                 {
-                    if (item.Type != EType.Furniture && item.Type != EType.Electronics)
+                    if (item.IsToxicWaste)
                     {
-                        continue;
+                        notDumpItems.Add(item);
                     }
                     else
                     {
-                        DumpItems.Add(item);
-                        continue;
+                        if (item.Weight == 11 || item.Weight == 10 || item.Weight == 15)
+                        {
+                            notDumpItems.Add(item);
+                        }
                     }
                 }
-                DumpItems.Add(item);
             }
 
-            return DumpItems;
-        }*/
+            List<Item> dumpItems = NonRecycleItems;
+            
+            foreach(Item item in notDumpItems)
+            {
+                dumpItems.Remove(item);
+            }
 
+            return dumpItems;
+        }
+        // below is Dump() using foreach only once
+        /*
         public List<Item> Dump()
         {
             List<Item> NotDumpItems = new List<Item>();
@@ -101,5 +110,6 @@ namespace Lab6
             }
             return DumpItems;
         }
+        */
     }
 }
