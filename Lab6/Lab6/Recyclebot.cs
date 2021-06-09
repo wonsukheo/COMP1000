@@ -23,7 +23,7 @@ namespace Lab6
                 RecycleItems.Add(item);
             }
         }
-
+        /*
         public List<Item> Dump()
         {
             List<Item> DumpItems = new List<Item>();
@@ -39,11 +39,66 @@ namespace Lab6
                     else
                     {
                         DumpItems.Add(item);
+                        continue;
                     }
                 }
                 DumpItems.Add(item);
             }
 
+            return DumpItems;
+        }*/
+
+        public List<Item> Dump()
+        {
+            List<Item> NotDumpItems = new List<Item>();
+            List<Item> DumpItems = new List<Item>();
+
+            foreach (Item item in NonRecycleItems)
+            {
+                if (item.IsToxicWaste)
+                {
+                    if (item.Volume != 10.0 && item.Volume != 11.0 && item.Volume != 15.0)
+                    {
+                        if (item.Type != EType.Electronics && item.Type != EType.Furniture)
+                        {
+                            NotDumpItems.Add(item);
+                        }
+                        else
+                        {
+                            DumpItems.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (item.Type != EType.Electronics && item.Type != EType.Furniture)
+                        {
+                            NotDumpItems.Add(item);
+                        }
+                        else
+                        {
+                            DumpItems.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    if (item.Volume == 10.0 || item.Volume == 11.0 || item.Volume == 15.0)
+                    {
+                        if (item.Type != EType.Electronics && item.Type != EType.Furniture)
+                        {
+                            NotDumpItems.Add(item);
+                        }
+                        else
+                        {
+                            DumpItems.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        DumpItems.Add(item);
+                    }
+                }
+            }
             return DumpItems;
         }
     }
