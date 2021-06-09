@@ -38,7 +38,7 @@ namespace Lab6
                     }
                     else
                     {
-                        if (item.Weight == 11 || item.Weight == 10 || item.Weight == 15)
+                        if (item.Volume == 11 || item.Volume == 10 || item.Volume == 15)
                         {
                             notDumpItems.Add(item);
                         }
