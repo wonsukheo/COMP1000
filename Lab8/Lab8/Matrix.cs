@@ -10,7 +10,7 @@ namespace Lab8
         {
             int dotProduct = 0;
 
-            if (v1.Length < 2)
+            if (v1.Length < 1)
             {
                 return 0;
             }
@@ -58,7 +58,7 @@ namespace Lab8
             int col = matrix.GetLength(1);
             int[] rowMatrix = new int[col];
 
-            if (row < 0 || row > matrix.GetLength(0))
+            if (row < 0 || row >= matrix.GetLength(0))
             {
                 return null;
             }
@@ -76,7 +76,7 @@ namespace Lab8
             int row = matrix.GetLength(0);
             int[] colMatrix = new int[row];
 
-            if (col < 0 || col > matrix.GetLength(1))
+            if (col < 0 || col >= matrix.GetLength(1))
             {
                 return null;
             }
