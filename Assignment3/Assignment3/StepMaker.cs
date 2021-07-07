@@ -24,7 +24,7 @@ namespace Assignment3
                     continue;
                 }
 
-                if (newSteps[i] - newSteps[i - 1] > 10)
+                if (Math.Abs(newSteps[i] - newSteps[i - 1]) > 10)
                 {   
                     if (i < recursive)
                     {
