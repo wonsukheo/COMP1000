@@ -44,7 +44,12 @@ namespace Assignment3
         {
             for (int i = 1; i < 5; i++)
             {
-                newSteps.Insert(startIndex + i, newSteps[startIndex] + i * (newSteps[startIndex + i] - newSteps[startIndex]) / 5 + noise.GetNext(depth));
+                /*int result = i * (newSteps[startIndex + i] - newSteps[startIndex]) * 2;
+                result /= 10;
+                result += newSteps[startIndex] + noise.GetNext(depth);*/
+                int result = ((10 - i * 2) * newSteps[startIndex] + (i * 2) * newSteps[startIndex + i]) / 10;
+
+                newSteps.Insert(startIndex + i, result + noise.GetNext(depth));
             }                        
             return newSteps;
         }
