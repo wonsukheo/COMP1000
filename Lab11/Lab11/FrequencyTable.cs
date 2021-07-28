@@ -31,7 +31,7 @@ namespace Lab11
                 binCount = ((max - min) / binWidth) + 1;
             }
 
-            List<Tuple<Tuple<int, int>, int>> FrequencyTable = new List<Tuple<Tuple<int, int>, int>>();
+            List<Tuple<Tuple<int, int>, int>> frequencyTable = new List<Tuple<Tuple<int, int>, int>>();
 
             for (int i = 0; i < binCount; i++)
             {
@@ -53,10 +53,10 @@ namespace Lab11
                     break;
                 } 
 
-                FrequencyTable.Add(new Tuple<Tuple<int, int>, int>(new Tuple<int, int>(min + binWidth * (i), min + binWidth * (i + 1)), dataCount));
+                frequencyTable.Add(new Tuple<Tuple<int, int>, int>(new Tuple<int, int>(min + binWidth * (i), min + binWidth * (i + 1)), dataCount));
             }
 
-            return FrequencyTable;
+            return frequencyTable;
         }
         public static int CompareInt(int a, int b)
         {
