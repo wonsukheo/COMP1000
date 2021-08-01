@@ -167,10 +167,33 @@ namespace Assignment4
                             }
                         }
                     }
-                    int newR = (int)newColorR % 256;
-                    int newG = (int)newColorG % 256;
-                    int newB = (int)newColorB % 256;
-                    Color newColor = Color.FromArgb((byte)newR, (byte)newG, (byte)newB);
+                    if (newColorR > 255)
+                    {
+                        newColorR = 255;
+                    }
+                    else if (newColorR < 0)
+                    {
+                        newColorR = 0;
+                    }
+
+                    if (newColorB > 255)
+                    {
+                        newColorB = 255;
+                    }
+                    else if (newColorB < 0)
+                    {
+                        newColorB = 0;
+                    }
+
+                    if (newColorG > 255)
+                    {
+                        newColorG = 255;
+                    }
+                    else if (newColorG < 0)
+                    {
+                        newColorG = 0;
+                    }
+                    Color newColor = Color.FromArgb((byte)newColorR, (byte)newColorG, (byte)newColorB);
                     convolvedImage.SetPixel(j, i, newColor);
                 }
             }
