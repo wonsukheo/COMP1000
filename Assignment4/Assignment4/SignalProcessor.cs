@@ -7,11 +7,16 @@ namespace Assignment4
     {
         public static double[] GetGaussianFilter1D(double sigma)
         {
-            uint length = (uint)(sigma * 6);
-            
+            double len = sigma * 6;
+            uint length = (uint)len;
+
             if (length % 2 == 0)
             {
                 length++;
+            }
+            if (len > length)
+            {
+                length += 2;
             }
 
             int distribution = (int)(length / 2);
@@ -29,39 +34,51 @@ namespace Assignment4
 
         public static double[] Convolve1D(double[] signal, double[] filter)
         {
-            int median = (filter.Length + 1) / 2;
+            int median = (filter.Length - 1) / 2;
             int distribution = (filter.Length - 1) / 2;
+
+            double[] reversedFilter = new double[filter.Length];
+            
+            for (int i = 0; i < filter.Length; i++)
+            {
+                reversedFilter[i] = filter[filter.Length - 1 - i];
+            }
 
             double[] filteredSignal = new double[signal.Length];
 
             for (int i = 0; i < signal.Length; i++)
             {
-                double value = signal[i] * filter[median - 1];
+                double value = signal[i] * reversedFilter[median];
 
                 for (int j = 1; j <= distribution; j++)
                 {
                     if (i - j >= 0)
                     {
-                        value += signal[i - j] * filter[median - 1 - j];
+                        value += signal[i - j] * reversedFilter[median - j];
                     }
                     if (i + j < signal.Length)
                     {
-                        value += signal[i + j] * filter[median - 1 + j];
+                        value += signal[i + j] * reversedFilter[median + j];
                     }    
                 }
-                filteredSignal[i] = value;
                 
+                filteredSignal[i] = value;
             }
             return filteredSignal;
         }
 
         public static double[,] GetGaussianFilter2D(double sigma)
         {
-            uint length = (uint)(sigma * 6);
+            double len = sigma * 6;
+            uint length = (uint)len;
 
             if (length % 2 == 0)
             {
                 length++;
+            }
+            if (len > length)
+            {
+                length += 2;
             }
 
             int distribution = (int)(length / 2);
@@ -73,7 +90,7 @@ namespace Assignment4
                 for (int j = 0; j < length; j++)
                 {
                     double denom = denominator * Math.PI;
-                    double numer = Math.Exp( ( ( (i - distribution) * (i - distribution) + (j - distribution) * (j - distribution) ) / -denominator) );
+                    double numer = Math.Exp((((i - distribution) * (i - distribution) + (j - distribution) * (j - distribution)) / -denominator));
                     gaussianFilter2D[i, j] = numer / denom;
                 }
             }
@@ -83,17 +100,16 @@ namespace Assignment4
 
         public static Bitmap ConvolveImage(Bitmap bitmap, double[,] filter)
         {
-            int r = filter.GetLength(0);
-            int c = filter.GetLength(1);
-            double[,] convolveFilter = new double[r, c];
-            int median = r / 2;
-            int distribution = r / 2;
+            int len = filter.GetLength(0);
+            double[,] convolveFilter = new double[len, len];
+            int median = len / 2;
+            int distribution = len / 2;
 
-            for (int i = 0; i < r; i++)
+            for (int i = 0; i < len; i++)
             {
-                for (int j = 0; j < c; j++)
+                for (int j = 0; j < len; j++)
                 {
-                    convolveFilter[i, j] = filter[r - i - 1, c - j - 1];
+                    convolveFilter[i, j] = filter[len - i - 1, len - j - 1];
                 }
             }
 
