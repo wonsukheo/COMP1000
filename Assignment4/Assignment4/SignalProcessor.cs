@@ -117,9 +117,9 @@ namespace Assignment4
             int bitmapC = bitmap.Width;
             Bitmap convolvedImage = new Bitmap(bitmapC, bitmapR);
 
-            for (int i = 0; i < bitmapR; i++)
+            for (int j = 0; j < bitmapC; j++)
             {
-                for (int j = 0; j < bitmapC; j++)
+                for (int i = 0; i < bitmapR; i++)
                 {
                     
                     Color pixelColor = bitmap.GetPixel(j, i);
