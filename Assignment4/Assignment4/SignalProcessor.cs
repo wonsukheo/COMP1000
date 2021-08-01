@@ -115,14 +115,14 @@ namespace Assignment4
 
             int bitmapR = bitmap.Height;
             int bitmapC = bitmap.Width;
+            Bitmap originalImage = new Bitmap(bitmap);
             Bitmap convolvedImage = new Bitmap(bitmapC, bitmapR);
 
-            for (int j = 0; j < bitmapC; j++)
+            for (int i = 0; i < bitmapR; i++)
             {
-                for (int i = 0; i < bitmapR; i++)
+                for (int j = 0; j < bitmapC; j++)
                 {
-                    
-                    Color pixelColor = bitmap.GetPixel(j, i);
+                    Color pixelColor = originalImage.GetPixel(j, i);
                     
                     double newColorR = (double)(pixelColor.R * convolveFilter[median, median]);
                     double newColorG = (double)(pixelColor.G * convolveFilter[median, median]);
@@ -139,36 +139,38 @@ namespace Assignment4
 
                             if (i - k >= 0 && j - l >= 0)
                             {
-                                pixelColor = bitmap.GetPixel(j - l, i - k);
+                                pixelColor = originalImage.GetPixel(j - l, i - k);
                                 newColorR += (double)(pixelColor.R * convolveFilter[median - k, median - l]);
                                 newColorG += (double)(pixelColor.G * convolveFilter[median - k, median - l]);
                                 newColorB += (double)(pixelColor.B * convolveFilter[median - k, median - l]);
                             }
                             if (k != 0 && l != 0 && i - k >= 0 && j + l < bitmapC)
                             {
-                                pixelColor = bitmap.GetPixel(j + l, i - k);
+                                pixelColor = originalImage.GetPixel(j + l, i - k);
                                 newColorR += (double)(pixelColor.R * convolveFilter[median - k, median + l]);
                                 newColorG += (double)(pixelColor.G * convolveFilter[median - k, median + l]);
                                 newColorB += (double)(pixelColor.B * convolveFilter[median - k, median + l]);
                             }
                             if (i + k < bitmapR && j + l < bitmapC)
                             {
-                                pixelColor = bitmap.GetPixel(j + l, i + k);
+                                pixelColor = originalImage.GetPixel(j + l, i + k);
                                 newColorR += (double)(pixelColor.R * convolveFilter[median + k, median + l]);
                                 newColorG += (double)(pixelColor.G * convolveFilter[median + k, median + l]);
                                 newColorB += (double)(pixelColor.B * convolveFilter[median + k, median + l]);
                             }
                             if (k != 0 && l != 0 && i + k < bitmapR && j - l >= 0)
                             {
-                                pixelColor = bitmap.GetPixel(j - l, i + k);
+                                pixelColor = originalImage.GetPixel(j - l, i + k);
                                 newColorR += (double)(pixelColor.R * convolveFilter[median + k, median - l]);
                                 newColorG += (double)(pixelColor.G * convolveFilter[median + k, median - l]);
                                 newColorB += (double)(pixelColor.B * convolveFilter[median + k, median - l]);
                             }
                         }
                     }
-
-                    Color newColor = Color.FromArgb((byte)newColorR, (byte)newColorG, (byte)newColorB);
+                    int newR = (int)newColorR % 256;
+                    int newG = (int)newColorG % 256;
+                    int newB = (int)newColorB % 256;
+                    Color newColor = Color.FromArgb((byte)newR, (byte)newG, (byte)newB);
                     convolvedImage.SetPixel(j, i, newColor);
                 }
             }
